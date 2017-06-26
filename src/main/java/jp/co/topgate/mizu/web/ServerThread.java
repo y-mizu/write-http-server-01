@@ -6,7 +6,7 @@ import java.util.*;
 import java.text.*;
 
 public class ServerThread implements Runnable {
-    private static final String DOCUMET_ROOT = "C:¥¥Apache24¥¥htdocs";
+    private static final String DOCUMET_ROOT = "/Users/mizu/~Sites/photo05/photo05.html";
     private Socket socket;
 
     //inputstreamからのバイト列を、行単位で読み込むユーティリティメソッド
@@ -71,7 +71,7 @@ public class ServerThread implements Runnable {
 
     @Override
     public void run(){
-        OutputStream output = null;
+        OutputStream output;
 
         try{
             InputStream input = socket.getInputStream();
@@ -100,7 +100,7 @@ public class ServerThread implements Runnable {
             writeLine(output, "");
 
             //レスポンスボディ
-            try(FileInputStream fis = new FileInputStream(DOCUMET_ROOT + path);){
+            try(FileInputStream fis = new FileInputStream(DOCUMET_ROOT);){
                 int ch;
                 while((ch = fis.read()) !=  -1){
                     output.write(ch);

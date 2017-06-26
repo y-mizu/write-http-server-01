@@ -6,7 +6,7 @@ import java.util.*;
 
 public class Main {
     public static void main(String[] argv) throws Exception{
-        try (ServerSocket server = new ServerSocket(8080)){
+        try (ServerSocket server = new ServerSocket(8081)){
             for(;;){
                 Socket socket = server.accept();
                 ServerThread serverThread = new ServerThread(socket);
