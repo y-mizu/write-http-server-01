@@ -1,115 +1,79 @@
 package jp.co.topgate.mizu.web;
 
+import com.sun.tools.corba.se.idl.ExceptionEntry;
+
 import java.io.*;
 import java.net.*;
+import java.nio.file.*;
 import java.util.*;
 import java.text.*;
 
-public class ServerThread implements Runnable {
-    private static final String DOCUMET_ROOT = "/Users/mizu/~Sites/photo05/photo05.html";
+class ServerThread implements Runnable {
+    private static final String DOCUMET_ROOT = "/Users/mizu/~Sites/example/index1.html";
+    private static final String ERROR_DOCUMET = "/Users/mizu/~Sites/example/404.html";
+    private static final String SERVER_NAME = "localhost:8081";
     private Socket socket;
-
-    //inputstreamからのバイト列を、行単位で読み込むユーティリティメソッド
-    private static String readLine(InputStream input) throws Exception {
-        int ch;
-        String ret = "";
-        while ((ch = input.read()) != -1) {
-            if (ch == 'r') {
-                //何もしない
-            } else if (ch == 'n') {
-                break;
-            } else {
-                ret += (char) ch;
-            }
-        }
-        if(ch == -1){
-            return null;
-        } else{
-            return ret;
-        }
-    }
-
-    //1行の文字列を、バイト列としてOutputstreamに書き込む
-    //ユーティリティメソッド
-    private static void writeLine(OutputStream output, String str)throws Exception{
-        for(char ch: str.toCharArray()){
-            output.write((int)ch);
-        }
-        output.write((int)'r');
-        output.write((int)'n');
-    }
-
-    //現在時刻から、HTTP標準に合わせてフォーマットされた日付文字列を返す
-    private static String getDateStringUtc(){
-        Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
-        DateFormat df = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss", Locale.US);
-        df.setTimeZone(cal.getTimeZone());
-        return df.format(cal.getTime()) + "GMT";
-    }
-
-    //拡張子とContent-Typeの対応表
-    private static final HashMap<String, String> contentTypeMap = new HashMap<String, String>(){{
-        put("html", "text/html");
-        put("htm", "text/html");
-        put("txt", "text/plain");
-        put("css", "text/css");
-        put("png", "image/png");
-        put("jpg", "image/jpeg");
-        put("jpeg", "image/jpeg");
-        put("gif", "immage/gif");
-        }
-    };
-    //拡張子を受け取りContent-Typeに返す
-    private static String getContentType(String ext){
-        String ret = contentTypeMap.get(ext.toLowerCase());
-        if(ret == null){
-            return "application/octet-stream";
-        }else{
-            return ret;
-        }
-    }
 
     @Override
     public void run(){
-        OutputStream output;
-
+        OutputStream output = null;
         try{
             InputStream input = socket.getInputStream();
 
             String line;
             String path = null;
             String ext = null;
+            String host = null;
 
-            while((line = readLine(input)) != null){
+            while((line = Util.readLine(input)) != null){
                 if(line == "")
                     break;
                 if(line.startsWith("GET")){
-                    path = line.split("")[1];
-                    String[] tmp = path.split("¥¥.");
+                    path = MyURLDecoder.decode(line.split("")[1], "UTF-8");
+                    String[] tmp = path.split("/");
                     ext = tmp[tmp.length -1];
+                }else if(line.startsWith("Host:")){
+                    host = line.substring("Host:".length());
                 }
             }
-            output = socket.getOutputStream();
+            if (path == null)
+                return;
 
-            //レスポンスヘッダを返す
-            writeLine(output, "HTTP /1.1 200 OK");
-            writeLine(output, "Date:" + getDateStringUtc());
-            writeLine(output, "Server: Modoki/0.1");
-            writeLine(output, "Connectin: close");
-            writeLine(output, "Content-Type:" + getContentType(ext));
-            writeLine(output, "");
+            if(path.endsWith("/")){
+                path += "index.html";
+                ext = "html";
+            }
+            output = new BufferedOutputStream(socket.getOutputStream());
 
-            //レスポンスボディ
-            try(FileInputStream fis = new FileInputStream(DOCUMET_ROOT);){
-                int ch;
-                while((ch = fis.read()) !=  -1){
-                    output.write(ch);
-                }
+            FileSystem fs = FileSystems.getDefault();
+            Path pathObj = fs.getPath(DOCUMET_ROOT);
+            Path realPath;
+            try{
+                realPath = pathObj.toRealPath();
+            } catch (NoSuchFileException ex){
+                SendResponse.sendNotFoundResponse(output, ERROR_DOCUMET);
+                return;
+            }
+            if(!realPath.startsWith(DOCUMET_ROOT)){
+                SendResponse.sendNotFoundResponse(output, ERROR_DOCUMET);
+                return;
+            }else if(Files.isDirectory(realPath)){
+                String location = "http://" + ((host != null) ? host : SERVER_NAME) + path + "/";
+                SendResponse.sendMovePermanentlyResponse(output, location);
+                return;
+            }
+            try(InputStream fis = new BufferedInputStream(Files.newInputStream(realPath))){
+                SendResponse.sendOkResponse(output, fis, ext);
+            } catch (FileNotFoundException ex){
+                SendResponse.sendNotFoundResponse(output, ERROR_DOCUMET);
             }
         } catch (Exception e){
             e.printStackTrace();
         } finally {
             try{
+                if (output != null){
+                    output.close();
+                }
                 socket.close();
             } catch (Exception e1){
                 e1.printStackTrace();
