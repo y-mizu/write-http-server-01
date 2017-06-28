@@ -5,8 +5,8 @@ import java.net.*;
 import java.nio.file.*;
 
 class ServerThread implements Runnable {
-    private static final String DOCUMET_ROOT = "/Users/mizu/~Sites/example/index1.html";
-    private static final String ERROR_DOCUMET = "/Users/mizu/~Sites/example";
+    private static final String DOCUMENT_ROOT = "/Users/mizu/~Sites/example";
+    private static final String ERROR_DOCUMENT = "/Users/mizu/~Sites/example";
     private static final String SERVER_NAME = "localhost:8081";
     private Socket socket;
 
@@ -21,10 +21,10 @@ class ServerThread implements Runnable {
             String ext = null;
             String host = null;
             while ((line = Util.readLine(input)) != null) {
-                if (line.equals(" "))
+                if (line.equals(""))
                     break;
                 if (line.startsWith("GET")) {
-                    path = MyURLDecoder.decode(line.split("")[1], "UTF-8");
+                    path = MyURLDecoder.decode(line.split(" ")[1], "UTF-8");
                     String[] tmp = path.split("\\.");
                     ext = tmp[tmp.length - 1];
                 } else if (line.startsWith("Host:")) {
@@ -41,16 +41,16 @@ class ServerThread implements Runnable {
             output = new BufferedOutputStream(socket.getOutputStream());
 
             FileSystem fs = FileSystems.getDefault();
-            Path pathObj = fs.getPath(DOCUMET_ROOT + path);
+            Path pathObj = fs.getPath(DOCUMENT_ROOT + path);
             Path realPath;
             try {
                 realPath = pathObj.toRealPath();
             } catch (NoSuchFileException ex) {
-                SendResponse.sendNotFoundResponse(output, ERROR_DOCUMET);
+                SendResponse.sendNotFoundResponse(output, ERROR_DOCUMENT);
                 return;
             }
-            if (!realPath.startsWith(DOCUMET_ROOT)) {
-                SendResponse.sendNotFoundResponse(output, ERROR_DOCUMET);
+            if (!realPath.startsWith(DOCUMENT_ROOT)) {
+                SendResponse.sendNotFoundResponse(output, ERROR_DOCUMENT);
                 return;
             } else if (Files.isDirectory(realPath)) {
                 String location = "http://" + ((host != null) ? host : SERVER_NAME) + path + "/";
@@ -60,7 +60,7 @@ class ServerThread implements Runnable {
             try (InputStream fis = new BufferedInputStream(Files.newInputStream(realPath))) {
                 SendResponse.sendOkResponse(output, fis, ext);
             } catch (FileNotFoundException ex) {
-                SendResponse.sendNotFoundResponse(output, ERROR_DOCUMET);
+                SendResponse.sendNotFoundResponse(output, ERROR_DOCUMENT);
             }
         } catch (Exception e) {
             e.printStackTrace();

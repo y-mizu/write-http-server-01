@@ -8,10 +8,10 @@ import java.io.OutputStream;
 class SendResponse {
     static void sendOkResponse(OutputStream output, InputStream fis, String ext) throws Exception {
         //レスポンスヘッダを返す
-        Util.writeLine(output, "HTTP /1.1 200 OK");
-        Util.writeLine(output, "Date:" + Util.getDateStringUtc());
+        Util.writeLine(output, "HTTP/1.1 200 OK");
+        Util.writeLine(output, "Date: " + Util.getDateStringUtc());
         Util.writeLine(output, "Server: write-http-server-01");
-        Util.writeLine(output, "Connectin: close");
+        Util.writeLine(output, "Connection: close");
         Util.writeLine(output, "Content-Type:" + Util.getContentType(ext));
         Util.writeLine(output, "");
         int ch;
@@ -22,20 +22,20 @@ class SendResponse {
 
     static void sendMovePermanentlyResponse(OutputStream output, String location) throws Exception {
         //レスポンスヘッダを返す
-        Util.writeLine(output, "HTTP /1.1 301 Moved Permanently");
-        Util.writeLine(output, "Date:" + Util.getDateStringUtc());
+        Util.writeLine(output, "HTTP/1.1 301 Moved Permanently");
+        Util.writeLine(output, "Date: " + Util.getDateStringUtc());
         Util.writeLine(output, "Server: write-http-server-01");
         Util.writeLine(output, "Location: " + location);
-        Util.writeLine(output, "Connectin: close");
+        Util.writeLine(output, "Connection: close");
         Util.writeLine(output, "");
     }
 
     static void sendNotFoundResponse(OutputStream output, String errorDocumentRoot) throws Exception {
         //レスポンスヘッダを返す
-        Util.writeLine(output, "HTTP /1.1 404 Not Found");
-        Util.writeLine(output, "Date:" + Util.getDateStringUtc());
+        Util.writeLine(output, "HTTP/1.1 404 Not Found");
+        Util.writeLine(output, "Date: " + Util.getDateStringUtc());
         Util.writeLine(output, "Server: write-http-server-01");
-        Util.writeLine(output, "Connectin: close");
+        Util.writeLine(output, "Connection: close");
         Util.writeLine(output, "Content-Type: text/html");
         Util.writeLine(output, "");
 

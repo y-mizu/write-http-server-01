@@ -36,8 +36,8 @@ class Util {
         for (char ch : str.toCharArray()) {
             output.write((int) ch);
         }
-        output.write((int) 'r');
-        output.write((int) 'n');
+        output.write((int) '\r');
+        output.write((int) '\n');
     }
 
     //現在時刻から、HTTP標準に合わせてフォーマットされた日付文字列を返す
@@ -54,11 +54,11 @@ class Util {
         {
             put("html", "text/html; charset=UTF-8");
             put("htm", "text/html; charset=UTF-8");
-            put("css", "text/css; charset=UTF-8");
-            put("png", "image/png; charset=UTF-8");
-            put("jpg", "image/jpeg; charset=UTF-8");
-            put("jpeg", "image/jpeg; charset=UTF-8");
-            put("gif", "immage/gif; charset=UTF-8");
+            put("css", "text/css;");
+            put("png", "image/png;");
+            put("jpg", "image/jpeg;");
+            put("jpeg", "image/jpeg;");
+            put("gif", "immage/gif;");
         }
     };
 
