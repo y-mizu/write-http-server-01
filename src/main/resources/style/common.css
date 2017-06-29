@@ -1,0 +1,409 @@
+@charset "utf-8";
+/* CSS Document */
+
+/*=======================================================================
+
+	FileName    :   common.css
+	LastUpdate  :   2016/03/31
+
+	Index:
+		00:ResetAndImportSetting
+		01:CommonSettings
+		02:WrapperSettings
+		03:HeaderSettings
+		04:NavSettings
+		05:ArticleSettings
+		06:FooterSettings
+		07:SidebarSettings
+		08:ContentsSettings
+		09:TableSettings
+		10:FormSettings
+
+=======================================================================*/
+
+/*
+	00:ResetAndImportSetting
+--------------------------------------------*/
+
+/*リセットスタイルシートの読み込み*/
+@import url(reset.css);
+
+
+/*
+	01:CommonSettings
+--------------------------------------------*/
+
+/*共通項目*/
+html
+{
+	height:100%;
+}
+
+/*共通項目*/
+body
+{
+	word-break: break-all;
+	word-wrap: break-word;
+	-webkit-text-size-adjust: none;
+	background-color: #F3F3F3;
+	color: #444;
+	font-size: 13px;
+}
+
+/*フロート設定（左）*/
+.left{ float:left; }
+/*フロート設定（右）*/
+.right{ float:right; }
+
+/*リンク設定*/
+a
+{
+	color: #444;
+	text-decoration: none;
+}
+
+a:hover{ text-decoration:underline; }
+
+
+/*
+	02:WrapperSettings
+--------------------------------------------*/
+
+/*ラッパー*/
+div#wrapper
+{
+	width: 100%;
+}
+
+/*ヘッダーラッパー*/
+div#headerWrapper
+{
+	width: 100%;
+	margin-bottom: 15px;
+	border-top: 18px solid #8F2B09;
+	background-color: #F9F9F9;
+	border-bottom: 1px solid #DDD;
+}
+
+/*フッターラッパー*/
+div#footerWrapper
+{
+	width: 100%;
+	background-color: #444;
+}
+
+
+/*
+	03:HeaderSettings
+--------------------------------------------*/
+
+/*ヘッダー*/
+div#header
+{
+	width: 960px;
+	padding-top: 15px;
+	margin: 0 auto;
+	margin-bottom: 20px;
+}
+
+/*ロゴ*/
+h1#logo
+{
+	width: 150px;
+	height: 40px;
+	background-image: url(../img/logo.gif);
+	text-indent: 100%;
+	white-space: nowrap;
+	overflow: hidden;
+	float: left;
+}
+
+div#info
+{
+	float: right;
+}
+
+p#contact
+{
+	font-size:10px;
+}
+
+p#number
+{
+	font-size: 26px;
+}
+
+span#phone
+{
+	color: #8F2B09;
+}
+
+
+/*
+	04:NavSettings
+--------------------------------------------*/
+
+/*グローバルナビゲーションラッパー*/
+div#gNavWrapper
+{
+	width: 100%;
+}
+
+/*グローバルナビゲーション*/
+ul#gNav
+{
+	width: 960px;
+	height: 20px;
+	margin: 0 auto;
+}
+
+/*グローバルナビゲーション個別設定*/
+ul#gNav li
+{
+	width: 159px;
+	height: 100%;
+	line-height: 20px;
+	text-align: center;
+	border-right: 1px solid #A9A9A9;
+	float: left;
+}
+
+/*グローバルナビゲーション個別リンク設定*/
+ul#gNav li a
+{
+	width: 100%;
+	display: block;
+}
+
+ul#gNav li:first-child
+{
+	width: 158px;
+	border-left: 1px solid #A9A9A9;
+}
+
+/*フッターナビ*/
+ul#footerNav
+{
+	float: left;
+}
+
+/*フッターナビ個別設定*/
+ul#footerNav li
+{
+	height: 20px;
+	padding: 5px 10px;
+	border-right: 1px solid #AAA;
+	float: left;
+}
+
+ul#footerNav li:first-child
+{
+	border-left: 1px solid #AAA;
+}
+
+/*フッターナビ個別リンク設定*/
+ul#footerNav li  a
+{
+	color: #AAA;
+}
+
+
+/*
+	05:ArticleSettings
+--------------------------------------------*/
+
+
+/*
+	06:FooterSettings
+--------------------------------------------*/
+
+/*フッター*/
+div#footer
+{
+	width:960px;
+	margin: 0 auto;
+	padding: 10px 0;
+}
+
+/*フッターロゴ*/
+div#utility
+{
+	color: #AAA;
+	text-align: right;
+	float: right;
+}
+
+div#utility h1
+{
+	margin-bottom: 10px;
+}
+
+p.address
+{
+	font-size: 8px;
+}
+
+/*
+	07:SidebarSettings
+--------------------------------------------*/
+
+/*サイドバー*/
+div#sidebar
+{
+	width: 220px;
+	float: left;
+}
+
+/*お問い合わせ*/
+div#contactUs
+{
+	width: 100%;
+	margin-bottom: 20px;
+	background-color: #A91E0E
+}
+
+/*コンタクト*/
+a#contact
+{
+	width: 100%;
+	padding: 20px 0;
+	text-align: center;
+	font-size: 18px;
+	color: #FFF;
+	display: block;
+}
+
+
+/*
+	08:ContentsSettings
+--------------------------------------------*/
+
+/*アーティクル*/
+div#article
+{
+	width: 960px;
+	margin: 0 auto;
+	margin-bottom: 20px;
+}
+
+/*メインビジュアル*/
+h1#mainVisual
+{
+	margin-bottom: 20px;
+}
+
+div#article h2
+{
+	padding: 8px;
+	margin-bottom: 10px;
+	border-bottom: 1px solid #CCC;
+}
+
+/*ボックスラッパー*/
+div.boxWrapper
+{
+	width: 100%;
+	margin-bottom: 30px;
+}
+
+/*イメージボックス*/
+div.imgBox
+{
+	width: 280px;
+		height:280px;
+	padding:15px;
+	margin-right: 15px;
+	background-color: #FFF;
+}
+
+/*イメージボックスコンテンツ*/
+div.imgBoxContents
+{
+	width: 100%;
+}
+
+/*ボックス１*/
+div.box1
+{
+	width: 100%;
+}
+
+/*ボックスタイトル*/
+p.boxTitle
+{
+	width: auto;
+	padding: 5px 10px;
+	margin-bottom: 15px;
+	background-color: #444;
+}
+
+/*ボックスイメージ*/
+p.boxImg
+{
+	width: 100%;
+	height: 180px;
+	margin-bottom: 10px;
+	background-color: #CCC;
+}
+
+/*ボックスコンテンツ*/
+div.boxContents
+{
+	width: auto;
+	padding: 20px;
+	background-color: #FFF;
+}
+
+/*メインコンテンツ*/
+div#contentsMain
+{
+	width: 725px;
+	float: right;
+}
+
+/*詳細はこちら*/
+a#toDetail
+{
+	width: 300px;
+	padding: 10px 0;
+	margin: 0 auto;
+	margin-top: 30px;
+	text-align: center;
+	display: block;
+}
+
+p#copyright
+{
+	color: #AAA;
+	text-align: center;
+}
+
+
+/*
+	09:TableSettings
+--------------------------------------------*/
+
+
+/*
+	10:FormSettings1x
+--------------------------------------------*/
+
+
+/*
+	99:AccessorySettings
+--------------------------------------------*/
+
+/*詳細ボタン*/
+.btnDetail
+{
+	background-color: #A91E0E;
+}
+
+/*レッドボタン*/
+.btnRed
+{
+	background-color: #A91E0E;
+	color: #FFF;
+}
+
+

@@ -12,7 +12,7 @@ class SendResponse {
         Util.writeLine(output, "Date: " + Util.getDateStringUtc());
         Util.writeLine(output, "Server: write-http-server-01");
         Util.writeLine(output, "Connection: close");
-        Util.writeLine(output, "Content-Type:" + Util.getContentType(ext));
+        Util.writeLine(output, "Content-Type: " + Util.getContentType(ext));
         Util.writeLine(output, "");
         int ch;
         while ((ch = fis.read()) != -1) {

@@ -5,8 +5,8 @@ import java.net.*;
 import java.nio.file.*;
 
 class ServerThread implements Runnable {
-    private static final String DOCUMENT_ROOT = "/Users/mizu/~Sites/example";
-    private static final String ERROR_DOCUMENT = "/Users/mizu/~Sites/example";
+    private static final String DOCUMENT_ROOT = "src/main/resources";
+    private static final String ERROR_DOCUMENT = "src/main/resources";
     private static final String SERVER_NAME = "localhost:8081";
     private Socket socket;
 
@@ -49,7 +49,8 @@ class ServerThread implements Runnable {
                 SendResponse.sendNotFoundResponse(output, ERROR_DOCUMENT);
                 return;
             }
-            if (!realPath.startsWith(DOCUMENT_ROOT)) {
+            //条件分岐の処理に関する学びの箇所　後ろだけでなく前も！！
+            if (!realPath.startsWith("/Users/mizu/git/write-http-server-01/" + DOCUMENT_ROOT)) {
                 SendResponse.sendNotFoundResponse(output, ERROR_DOCUMENT);
                 return;
             } else if (Files.isDirectory(realPath)) {
