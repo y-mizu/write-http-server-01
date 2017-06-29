@@ -10,37 +10,37 @@
 
 ***DEMO:***
 
-![Demo]
+![Demo] 無
 
 ## Features
 
-- Awesome function
-- Awesome UI
-- ...
+- クライアントからリクエストを飛ばすとレスポンスを返す「普通の」webサーバ
+- すごいUIなんて実装する時間なかった、、、
+- とくにすごくない
 
 ## Requirement
 
 ツールやライブラリを使うのに依存がある場合は、その依存を書く
-- Requirement
-- Requirement
-- Requirement
+- 多分ない。
+- これから拡張して行くときに使うかもしれない
+- 依存についてもよくわからない
 
 ## Usage
 
 使い方を書く。コマンドの場合は、オプションなども説明できるとよい。
-1. Usage
-2. Usage
-3. Usage
+1. terminalを開く
+2. 当ファイルまで移動
+3. ./gradle clean run
 
 ## Installation
 
-インストール方法を書く。ターミナルから最小限のコマンドでインストールできると良い。
+$ git clone https://github.com/y-mizu/write-http-server-01.git
 
 ## Anything Else
 
-AnythingAnythingAnything
-AnythingAnythingAnything
-AnythingAnythingAnything
+単純なものなので、そんなに色々できない
+それなりにセキュリティのことも考えている
+cf. 「基礎からのWebアプリケーション開発入門 webサーバを作りながら学ぶ」
 
 ## Author
 Yuichirio Mizukami
