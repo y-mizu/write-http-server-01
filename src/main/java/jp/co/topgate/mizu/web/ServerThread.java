@@ -20,7 +20,7 @@ class ServerThread implements Runnable {
             String path = null;
             String ext = null;
             String host = null;
-            while ((line = Util.readLine(input)) != null) {
+            while ((line = Util.BufferedReader(input)) != null) {
                 if (line.equals(""))
                     break;
                 if (line.startsWith("GET")) {

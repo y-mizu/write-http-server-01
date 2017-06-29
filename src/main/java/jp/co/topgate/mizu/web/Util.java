@@ -11,7 +11,7 @@ import java.util.TimeZone;
 
 class Util {
     //inputstreamからのバイト列を、行単位で読み込むユーティリティメソッド
-    static String readLine(InputStream input) throws Exception {
+    static String BufferedReader(InputStream input) throws Exception {
         int ch;
         String ret = "";
         while ((ch = input.read()) != -1) {
